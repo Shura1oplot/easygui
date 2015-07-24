@@ -898,7 +898,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     localRoot.withdraw()
 
     initialbase, initialfile, initialdir, filetypes = fileboxSetup(
-        default, filetypes)
+        default, filetypes, "open")
 
     # ------------------------------------------------------------
     # if initialfile contains no wildcards; we don't want an
@@ -953,7 +953,7 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
     localRoot.withdraw()
 
     initialbase, initialfile, initialdir, filetypes = fileboxSetup(
-        default, filetypes)
+        default, filetypes, "save")
 
     f = ut.tk_FileDialog.asksaveasfilename(parent=localRoot, title=getFileDialogTitle(msg, title), initialfile=initialfile, initialdir=initialdir, filetypes=filetypes
                                         )
@@ -968,7 +968,7 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
 # fileboxSetup
 #
 # -------------------------------------------------------------------
-def fileboxSetup(default, filetypes):
+def fileboxSetup(default, filetypes, boxtype):
     if not default:
         default = os.path.join(".", "*")
     initialdir, initialfile = os.path.split(default)
@@ -1017,7 +1017,7 @@ def fileboxSetup(default, filetypes):
     if initialFileTypeObject in (filetypeObjects[0], filetypeObjects[-1]):
         pass
     else:
-        if ut.runningPython27:
+        if ut.runningPython27 and boxtype == "open":
             filetypeObjects.append(initialFileTypeObject)
         else:
             filetypeObjects.insert(0, initialFileTypeObject)
