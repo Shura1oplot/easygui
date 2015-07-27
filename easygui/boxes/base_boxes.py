@@ -111,12 +111,8 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
 
 
 def bindArrows(widget):
-
     widget.bind("<Down>", tabRight)
     widget.bind("<Up>", tabLeft)
-
-    widget.bind("<Right>", tabRight)
-    widget.bind("<Left>", tabLeft)
 
 
 def tabRight(event):
