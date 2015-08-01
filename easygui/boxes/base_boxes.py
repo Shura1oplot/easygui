@@ -110,9 +110,16 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
     return __replyButtonText
 
 
-def bindArrows(widget):
+def bindArrowsUpDown(widget):
     widget.bind("<Down>", tabRight)
     widget.bind("<Up>", tabLeft)
+
+
+def bindArrows(widget):
+    bindArrowsUpDown(widget)
+
+    widget.bind("<Right>", tabRight)
+    widget.bind("<Left>", tabLeft)
 
 
 def tabRight(event):
@@ -185,7 +192,7 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
             font=(st.PROPORTIONAL_FONT_FAMILY, st.TEXT_ENTRY_FONT_SIZE))
         entryWidget.pack(side=RIGHT, padx="3m")
 
-        bindArrows(entryWidget)
+        bindArrowsUpDown(entryWidget)
 
         entryWidget.bind("<Return>", __multenterboxGetText)
         entryWidget.bind("<Escape>", __multenterboxCancel)
@@ -338,7 +345,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
 
     # --------- entryWidget ----------------------------------------------
     entryWidget = Entry(entryFrame, width=40)
-    bindArrows(entryWidget)
+    bindArrowsUpDown(entryWidget)
     entryWidget.configure(
         font=(st.PROPORTIONAL_FONT_FAMILY, st.TEXT_ENTRY_FONT_SIZE))
     if mask:
