@@ -915,8 +915,11 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
         initialfile = None
 
     func = ut.tk_FileDialog.askopenfilenames if multiple else ut.tk_FileDialog.askopenfilename
-    ret_val = func(parent=localRoot, title=getFileDialogTitle(msg, title), initialdir=initialdir, initialfile=initialfile, filetypes=filetypes
-                   )
+    ret_val = func(parent=localRoot, title=getFileDialogTitle(msg, title), initialdir=initialdir, initialfile=initialfile, filetypes=filetypes)
+
+    if not ret_val:
+        localRoot.destroy()
+        return None
 
     if multiple:
         f = [os.path.normpath(x) for x in localRoot.tk.splitlist(ret_val)]
